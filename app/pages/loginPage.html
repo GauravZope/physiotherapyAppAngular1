@@ -12,7 +12,7 @@
     
     <div  >
         <!-- tp fixed bar here -->   
-    <p class="logoplace" style="max-width: 60%;"><img align="center" src="img/icon.png"><img align="center" src="img/logo.png"></p>       
+    <p class="logoplace"><img align="center" style="max-width: 60%" src="img/icon.png"><img align="center" src="img/logo.png"></p>       
     </div>
 
             <div class="container">
@@ -70,71 +70,5 @@
         	</div>
         </div>
     </div>
+
             
-<style type="text/css">
-    .tablink {
-        background-color: #1a75ff;
-        color: white;
-        float: left;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        padding: 14px 16px;
-        margin-bottom: 8%;
-        font-size: 17px;
-        width: 50%;
-    }
-
-    /* Change background color of buttons on hover */
-    .tablink:hover {
-        background-color: #33cccc;
-    }
-
-    /* Set default styles for tab content */
-    .tabcontent {
-        color: white;
-        display: none;
-        padding: 50px;
-        text-align: center;
-    }
-</style>
-
-
-<script type="text/javascript">
-
-    $('.modal-dialog').css('background-image', 'url("img/1.jpg")');
-   
-    $("#registerHereId").click(function() {
-    	$("#registerModule").toggle();
-    	$("#loginModule").toggle();
-	});
-	$("#loginId").click(function() {
-    	$("#registerModule").toggle();
-    	$("#loginModule").toggle();
-	});
-    
-    function openTab(tabName, elmnt) {
-        // Hide all elements with class="tabcontent" by default */
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-
-        // Remove the background color of all tablinks/buttons
-        tablinks = document.getElementsByClassName("tablink");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].style.backgroundColor = "";
-        }
-
-        // Show the specific tab content
-        document.getElementById(tabName).style.display = "block";
-
-        // Add the specific color to the button used to open the tab content
-    }
-
-    // Get the element with id="defaultOpen" and click on it
-    // document.getElementsByClassName("defaultOpen").style.backgroundColor = #ffff;
-    document.getElementById("defaultOpen").click(); 
-    $('#defaultOpen').css('background-color', '#33cccc');
-</script>
