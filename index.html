@@ -1,64 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta http-equiv="content-type" content="text/html; charset=UTF-8">
-<meta charset="utf-8">
-<title>Physiotherapy Patient Monitoring System</title>
-<meta name="generator" content="Bootply" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<!--[if lt IE 9]>
-			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-<![endif]-->
+    <meta charset="utf-8" />
+    <base href="/physiotherapyAppAngular1/" />
+    <title>Physiotherapy Patient Monitoring System</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="yes" />
+    <link rel="shortcut icon" href="/assets/img/favicon.png" type="image/x-icon" />
+    <link rel="stylesheet" href="/physiotherapyAppAngular1/css/mobile-angular-ui-hover.min.css" />
+    <link rel="stylesheet" href="/physiotherapyAppAngular1/css/mobile-angular-ui-base.min.css" />
+    <link rel="stylesheet" href="/physiotherapyAppAngular1/css/mobile-angular-ui-desktop.min.css" />
+    <script src="/physiotherapyAppAngular1/js/angular.min.js"></script>
+    <script src="/physiotherapyAppAngular1/js/angular-route.min.js"></script>
+    <script src="/physiotherapyAppAngular1/js/mobile-angular-ui.min.js"></script>
+    <!-- Required to use $touch, $swipe, $drag and $translate services -->
+    <script src="/physiotherapyAppAngular1/js/mobile-angular-ui.gestures.min.js"></script>
+    <script src="/physiotherapyAppAngular1/js/index.js"></script>
+    <link rel="stylesheet" href="/physiotherapyAppAngular1/css/styles.css" />
 
-<link href="css/styles.css" rel="stylesheet">
-<link href="css/datepicker.css" rel="stylesheet">
-<link href="css/prettify.css" rel="stylesheet">
-<link href="css/timepicki.css" rel="stylesheet">
-<link href="select2/select2.css" rel="stylesheet"/>
-<link rel="stylesheet" href="css/jquery-ui.css" />
 
-<script src="js/jquery-1.8.2.js"></script>
-<script src="js/jquery-ui.js"></script>
-<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript" src="js/jquery.min.js"></SCRIPT>
-<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript" src="js/jquery.touchSwipe.min.js"></SCRIPT>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/appLib.js"></script>
-<script src="js/commonUtilities.js"></script>
-<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript" src="js/index.js"></SCRIPT>
-<script src="js/supported_date.js"></script>
-<script src="js/prettify.js"></script>
-<script src="js/bootstrap-datepicker.js"></script>
-<script src="select2/select2.js"></script>
-<SCRIPT LANGUAGE="JavaScript" TYPE="text/javascript" src="js/timepicki.js"></SCRIPT>
-</head>
-<body onload="init();" >
-<!--login modal-->
-<div id="loginModal" class="modal show" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-      <div class="modal-content clearfix">
-		  <div class="modal-header" id="mainHeader"> </div>
-		  
-		  <div class="modal-body clearfix" id="mainContainer">
-			  <div id="tab-content">
 
-            </div>
-		 </div>
- 
- 
-		  <div class="footer">
-			<p>&copy; Copyright 2017. All Rights Reserved.<br>
-			  </p>
-		  </div>
-	  </div>
-   </div>
- </div>
+  </head>
 
-<!-- script references -->
+<body ng-app="physiotherapyAppAngular1" ng-controller="MainController" ui-prevent-touchmove-defaults>
+
+     <!-- Sidebars -->
+ 	 <!--<div ng-include="'/physiotherapyAppAngular1/demo/sidebar.html'"
+            ui-track-as-search-param="true"
+            class="sidebar sidebar-left"></div>
+
+		<div ng-include="'/physiotherapyAppAngular1/demo/sidebarRight.html'"
+            class="sidebar sidebar-right"></div>
+	-->
+    <div class="app"
+         ui-swipe-right="Ui.turnOn('uiSidebarLeft')"
+         ui-swipe-left="Ui.turnOff('uiSidebarLeft')">
+
+      <!-- Navbars -->
+
+      <div class="navbar navbar-app navbar-absolute-top">
+        <div class="navbar-brand navbar-brand-center" ui-yield-to="title">
+         Physiocare 
+        </div>
+        <div class="btn-group pull-left">
+          <div ui-toggle="uiSidebarLeft" class="btn sidebar-toggle">
+            <i class="fa fa-bars"></i> Menu
+          </div>
+        </div>
+        <div class="btn-group pull-right" ui-yield-to="navbarAction">
+          <div ui-toggle="uiSidebarRight" class="btn sidebar-right-toggle">
+            <i class="fa fa-comment"></i> Chat
+          </div>
+        </div>
+      </div>
+
+      <div class="navbar navbar-app navbar-absolute-bottom">
+        <div class="btn-group justified">
+          <a href="/docs" class="btn btn-navbar"><i class="fa fa-home fa-navbar"></i> Docs</a>
+          <a href="https://github.com/mcasimir/mobile-angular-ui" class="btn btn-navbar"><i class="fa fa-github fa-navbar"></i> Sources</a>
+          <a href="https://github.com/mcasimir/mobile-angular-ui/issues" class="btn btn-navbar"><i class="fa fa-exclamation-circle fa-navbar"></i> Issues</a>
+        </div>
+      </div>
+
+      <!-- App Body -->
+      <div class="app-body" ng-class="{loading: loading}">
+        <div ng-show="loading" class="app-content-loading">
+          <i class="fa fa-spinner fa-spin loading-spinner"></i>
+        </div>
+        <div class="app-content" style="background-color: #ffffff">
+          <ng-view></ng-view>
+        </div>
+      </div>
+
+    </div><!-- ~ .app -->
+
+    <div ui-yield-to="modals"></div>
 
 <script src="cordova.js"></script>
 <script>
-app.initialize();
+//app.initialize();
 </script>
 </body>
 </html>

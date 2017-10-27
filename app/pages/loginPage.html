@@ -3,17 +3,35 @@
 <link rel="stylesheet" href="css/form-elements.css">
 <link rel="stylesheet" href="css/style.css">
 
-
+<div ui-content-for="title">
+  <span>Welcome to physiocare</span>
+</div>
     <!-- Top content -->
-    <div class="top-content" id="top-part">
-    	
+
+    <div class="top-content" id="top-part" style="margin-top: 5%">
+    
+    <div  >
+        <!-- tp fixed bar here -->   
+    <p class="logoplace" style="max-width: 60%;"><img align="center" src="img/icon.png"><img align="center" src="img/logo.png"></p>       
+    </div>
+
             <div class="container">
             <div class="col-sm-5" >
-            	<div>
+                <ui-shared-state id="activeTab" default="1"></ui-shared-state>
+
+                 <ul class="nav nav-tabs">
+                    <li ui-class="{'active': activeTab == 1}">
+                      <a ui-set="{'activeTab': 1}">Login</a>
+                    </li>
+                    <li ui-class="{'active': activeTab == 2}">
+                      <a ui-set="{'activeTab': 2}">Register</a>
+                    </li>
+                </ul>
+            	<!--<div>
         			<button class="tablink" onclick="openTab('loginModule', this)" id="defaultOpen">Login</button>
                     <button class="tablink" onclick="openTab('registerModule', this)">Register</button>
-                </div>
-                <div class="form-bottom tabcontent" id="loginModule">
+                </div>-->
+                <div ui-if="activeTab == 1">
                 	<div class="form-group">
                 		<label class="sr-only" for="form-username">Username</label>
                     	<input type="text" name="form-username" placeholder="Username..." class="form-username form-control" id="userName">
@@ -25,7 +43,7 @@
                     <button class="btn" onclick="login();">Sign in</button>
                 </div>
             
-                <div class="form-bottom tabcontent" id="registerModule">
+                 <div ui-if="activeTab == 2">
                 	<div class="form-group">
                 		<label class="sr-only" for="form-first-name">First name</label>
                     	<input type="text" name="form-first-name" placeholder="First name..." class="form-first-name form-control" id="form-first-name">
@@ -83,6 +101,7 @@
 
 
 <script type="text/javascript">
+
     $('.modal-dialog').css('background-image', 'url("img/1.jpg")');
    
     $("#registerHereId").click(function() {

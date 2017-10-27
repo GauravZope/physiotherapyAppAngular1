@@ -1,328 +1,107 @@
-var j = jQuery.noConflict();
-var defaultPagePath='app/pages/';
-var headerMsg = "Physiotheropy";
-//var urlPath = "http://1.255.255.122:8080/TnEV1_0AWeb/WebService/Login/";
+'use strict';
 
-j(document).ready(function(){ 
-document.addEventListener("deviceready",loaded,false);
+//
+// Here is how to define your module
+// has dependent on mobile-angular-ui
+//
+var app = angular.module('physiotherapyAppAngular1', ['ngRoute','mobile-angular-ui',
+  // touch/drag feature: this is from 'mobile-angular-ui.gestures.js'.
+  // This is intended to provide a flexible, integrated and and
+  // easy to use alternative to other 3rd party libs like hammer.js, with the
+  // final pourpose to integrate gestures into default ui interactions like
+  // opening sidebars, turning switches on/off ..
+  'mobile-angular-ui.gestures'
+]);
+
+app.run(function($transform) {
+  window.$transform = $transform;
 });
-function loaded() {
-                pictureSource=navigator.camera.PictureSourceType;
-                destinationType=navigator.camera.DestinationType;
-            }
-function login()
-   {
-   	if(document.getElementById("userName")!=null){
-    	var userName = document.getElementById("userName").value;
-	}else if(document.getElementById("userName")!=null){
-		var userName = document.getElementById("userNameId").value;
-	}
-	var password = document.getElementById("password");
-    
-   	var headerBackBtn=defaultPagePath+'categoryMsgPage.html';
-	var pageRef=defaultPagePath+'category.html';
 
-	j('#loading').show();
-   if(userName == 'yashashreezope'){
-   		alert("Hello Dr. yashashree Zope. \n  Welcome to Your Physiotheropy App");
-				j('#mainHeader').load(headerBackBtn);
-				j('#mainContainer').load(pageRef);
-      appPageHistory.push(pageRef);
-   }else if(userName == 'gauravzope'){
-		alert("Hello Mr. Gaurav Zope. \n  Welcome to Your Physiotheropy App");
-				j('#mainHeader').load(headerBackBtn);
-				j('#mainContainer').load(pageRef);
-      appPageHistory.push(pageRef);
-   }else{
-   		alert("Please follow registration process for new enrollment");
-   }
+//
+// You can configure ngRoute as always, but to take advantage of SharedState location
+// feature (i.e. close sidebar on backbutton) you should setup 'reloadOnSearch: false'
+// in order to avoid unwanted routing.
+//
+app.config(function($routeProvider) {
+  $routeProvider.when('/', {templateUrl: '/physiotherapyAppAngular1/app/pages/loginPage.html', reloadOnSearch: false});
+  $routeProvider.when('/scroll', {templateUrl: '/physiotherapyAppAngular1/demo/scroll.html', reloadOnSearch: false});
+  $routeProvider.when('/toggle', {templateUrl: '/physiotherapyAppAngular1/demo/toggle.html', reloadOnSearch: false});
+});
 
 
- }
- 
+app.controller('MainController', function($rootScope, $scope) {
 
+  $scope.swiped = function(direction) {
+    alert('Swiped ' + direction);
+  };
 
-  function createBusinessExp(){
-	resetImageData();
-	var headerBackBtn=defaultPagePath+'backbtnPage.html';
-    var pageRef=defaultPagePath+'addAnExpense.html';
-			j(document).ready(function() {
-				j('#mainHeader').load(headerBackBtn);
-				j('#mainContainer').load(pageRef);
-			});
-      appPageHistory.push(pageRef);
-	 }
+  // User agent displayed in home page
+  $scope.userAgent = navigator.userAgent;
 
+  // Needed for the loading screen
+  $rootScope.$on('$routeChangeStart', function() {
+    $rootScope.loading = true;
+  });
 
-	 function displayBusinessExp(){
-		 
-    var headerBackBtn=defaultPagePath+'headerPageForBEOperation.html';
-     var pageRef=defaultPagePath+'fairClaimTable.html';
-			j(document).ready(function() {
-				j('#mainHeader').load(headerBackBtn);
-				j('#mainContainer').load(pageRef);
-			});
-      appPageHistory.push(pageRef);
-	 }
+  $rootScope.$on('$routeChangeSuccess', function() {
+    $rootScope.loading = false;
+  });
 
-	 function displayTSExp(){
-		 
-		 var headerBackBtn=defaultPagePath+'headerPageForTSOperation.html';
-		var pageRef=defaultPagePath+'travelSettlementTable.html';
-			j(document).ready(function() {
-				j('#mainHeader').load(headerBackBtn);
-				j('#mainContainer').load(pageRef);
-			});
-		appPageHistory.push(pageRef);
-	 }
+  // Fake text i used here and there.
+  $scope.lorem = 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. ' +
+    'Vel explicabo, aliquid eaque soluta nihil eligendi adipisci error, illum ' +
+    'corrupti nam fuga omnis quod quaerat mollitia expedita impedit dolores ipsam. Obcaecati.';
 
+  //
+  // 'Scroll' screen
+  //
+  var scrollItems = [];
 
- function init() {
-	 var pgRef;
-	var headerBackBtn;
-	if(window.localStorage.getItem("EmployeeId")!= null){
-		if(window.localStorage.getItem("UserStatus")=='Valid'){
-			pgRef=defaultPagePath+'category.html';
-			headerBackBtn=defaultPagePath+'categoryMsgPage.html';
-		}else{
-			headerBackBtn=defaultPagePath+'welcomePage.html';
-			pgRef=defaultPagePath+'loginPage.html';
-		}
-
-	}else{
-		headerBackBtn=defaultPagePath+'welcomePage.html';
-		pgRef=defaultPagePath+'loginPage.html';
-	}
-	
-	j(document).ready(function() {
-		j('#mainHeader').load(headerBackBtn);
-			j('#mainContainer').load(pgRef);
-			j('#mainContainer').load(pgRef,function() {
-  						if(window.localStorage.getItem("UserStatus")!=null
-  							&& window.localStorage.getItem("UserStatus")=='ResetPswd'){
-  							document.getElementById("userName").value=window.localStorage.getItem("UserName");
-  						}
-		 			  
-					});
-			j('#mainContainer').swipe({
-				swipe:function(event,direction,distance,duration,fingercount){
-					switch (direction) {
-						case "right":
-								goBack();
-								break;
-						default:
-
-					}
-				},
-				 threshold:200,
-				allowPageScroll:"auto"
-			});
-	});
-	appPageHistory.push(pgRef);
- }
- 
-  function loaddate(){
-	j(function(){
-		window.prettyPrint && prettyPrint();
-		j('.dp1').datepicker({
-			format: 'dd-mm-yyyy'
-		});		
-	});
-
-	j('.dp1').on('changeDate', function(ev){
-		j(this).datepicker('hide');
-	});
-
-}
- 
-
-function isJsonString(str) {
-	try {
-		JSON.parse(str);
-	} catch (e) {
-		return false;
-	}
-	return true;
-}
-				
- 
-function viewBusinessExp(){
-    var pageRef=defaultPagePath+'fairClaimTable.html';
-    var headerBackBtn=defaultPagePath+'headerPageForBEOperation.html';
-	j(document).ready(function() {	
-		j('#mainHeader').load(headerBackBtn);
-		j('#mainContainer').load(pageRef);
-	});
-    appPageHistory.push(pageRef);
-    resetImageData();
-    j('#loading_Cat').hide();
-}
-
-
-function viewTravelSettlementExp(){
-	resetImageData();
-    var pageRef=defaultPagePath+'travelSettlementTable.html';
-    var headerBackBtn=defaultPagePath+'headerPageForTSOperation.html';
-			j(document).ready(function() {
-				
-				j('#loading_Cat').hide();
-				j('#mainHeader').load(headerBackBtn);
-				j('#mainContainer').load(pageRef);
-			});
-      appPageHistory.push(pageRef);
-     }
-
-
-function createAccHeadDropDown(jsonAccHeadArr){
-	var jsonArr = [];
-			if(jsonAccHeadArr != null && jsonAccHeadArr.length > 0){
-				for(var i=0; i<jsonAccHeadArr.length; i++ ){
-					var stateArr = new Array();
-					stateArr = jsonAccHeadArr[i];
-					jsonArr.push({id: stateArr.Label,name: stateArr.Value});
-				}
-			}
-			jsonArr.sort(function(a, b){ // sort object by Account Head Name
-			var nameA=a.name.toLowerCase(), nameB=b.name.toLowerCase()
-			if (nameA < nameB) //sort string ascending
-				return -1 
-			if (nameA > nameB)
-				return 1
-			return 0 //default return value (no sorting)
-			})
-			j("#accountHead").select2({
-				data:{ results: jsonArr, text: 'name' },
-				placeholder: "Account Head",
-				minimumResultsForSearch: -1,
-				initSelection: function (element, callback) {
-					callback(jsonArr[1]);
-					getExpenseNamesBasedOnAccountHead();
-				},
-				formatResult: function(result) {
-					if ( ! isJsonString(result.id))
-						result.id = JSON.stringify(result.id);
-						return result.name;
-				}
-			});
-			
-}
-function getFormattedDate(input){
-    var inputDate=input.split('-');
-    var month = inputDate[1];
-    var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-
-    return inputDate[0]+"-"+months[(month-1)]+"-"+inputDate[2];
-   
-}
-
-function validateExpenseDetails(exp_date,exp_from_loc,exp_to_loc,exp_narration,exp_unit,exp_amt,acc_head_id,exp_name_id,currency_id,location_id){
-	if(exp_date == ""){
-		alert("Expense Date is invalid");
-		return false;
-	}
-	if(acc_head_id == "-1"){
-		alert("Account Head is invalid");
-		return false;
-	}
-	if(exp_name_id == "-1"){
-		alert("Expense Name is invalid");
-		return false;
-	}
-	if(flagForUnitEnable == true){
-		if(isZero(exp_unit,"Unit")==false){
-			document.getElementById("expUnit").value = "";
-			return false;
-		}
-	}	
-	if(isZero(exp_amt,"Amount")==false){
-		document.getElementById("expAmt").value = "";
-		return false;
-	}
-	if(perUnitDetailsJSON.expenseIsfromAndToReqd!='N'){
-		if(exp_from_loc == ""){
-			alert("From Location is invalid");
-			return false;
-		}
-		if(exp_to_loc == ""){
-			alert("To Location is invalid");
-			return false;
-		}
-	}
-
-	if(exp_narration == ""){
-		alert("Narration is invalid");
-		return false;
-	}
-	
-	if(perUnitDetailsJSON.expIsUnitReq == 'Y'){
-
-		if(exp_unit != ""){
-			if(isOnlyNumeric(exp_unit,"Unit")==false)
-			{
-				return false;
-			}
-			
-		}else{
-			alert("Unit is invalid");
-			return false;
-		}
-	}
-		
-
-		if(exp_amt != ""){
-			if(isOnlyNumeric(exp_amt,"Amount")==false)
-			{
-				return false;
-			}
-			
-		}else{
-			alert("Amount is invalid");
-			return false;
-		}
-	
-	if(currency_id == "-1"){
-		alert("Currency Name is invalid");
-		return false;
-	}
-    
-    	if(location_id == "-1"){
-		alert("Location Name is invalid");
-		return false;
-	}
-	
-		return true;
-	}
-
-
-
-function hasClass(ele,cls) {
-	  return !!ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
-}
-
-
-function onloadTimePicker(){
- 	
- 	if (top.location != location) {
-    top.location.href = document.location.href ;
+  for (var i = 1; i <= 100; i++) {
+    scrollItems.push('Item ' + i);
   }
-		
-	j('.timepicker1').timepicki();
- }
 
-function setDelayMessage(returnJsonData,jsonToBeSend,busExpDetailsArr){
-		var pageRef=defaultPagePath+'success.html';
-		if(returnJsonData.DelayStatus=='Y'){
-			exceptionMessage = "This voucher has exceeded Time Limit.";
-			
-		      j('#displayError').children('span').text(exceptionMessage);
-		      j('#displayError').hide().fadeIn('slow').delay(2000).fadeOut('slow');
-		    
-		}else{
+  $scope.scrollItems = scrollItems;
 
-			if(confirm("This voucher has exceeded Time Limit. Do you want to proceed?")==false){
-						return false;
-					}
-			 jsonToBeSend["DelayAllowCheck"]=true;
-			 callSendForApprovalServiceForBE(jsonToBeSend,busExpDetailsArr,pageRef);
-		}			
-}
+  $scope.bottomReached = function() {
+    alert('Congrats you scrolled to the end of the list!');
+  };
+
+  //
+  // Right Sidebar
+  //
+  $scope.chatUsers = [
+    {name: 'Carlos  Flowers', online: true},
+    {name: 'Byron Taylor', online: true},
+    {name: 'Jana  Terry', online: true},
+    {name: 'Darryl  Stone', online: true},
+  ];
+
+  //
+  // 'Forms' screen
+  //
+  $scope.rememberMe = true;
+  $scope.email = 'me@example.com';
+
+  $scope.login = function() {
+    alert('You submitted the login form');
+  };
+
+  //
+  // 'Drag' screen
+  //
+  $scope.notices = [];
+
+  for (var j = 0; j < 10; j++) {
+    $scope.notices.push({icon: 'envelope', message: 'Notice ' + (j + 1)});
+  }
+
+  $scope.deleteNotice = function(notice) {
+    var index = $scope.notices.indexOf(notice);
+    if (index > -1) {
+      $scope.notices.splice(index, 1);
+    }
+  };
+
+  
+});
