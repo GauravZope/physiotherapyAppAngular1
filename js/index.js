@@ -17,15 +17,19 @@ app.run(function($transform) {
   window.$transform = $transform;
 });
 
-//
+//muscleStretching
 // You can configure ngRoute as always, but to take advantage of SharedState location
 // feature (i.e. close sidebar on backbutton) you should setup 'reloadOnSearch: false'
 // in order to avoid unwanted routing.
 //
-app.config(function($routeProvider) {
+app.config(function($routeProvider,$locationProvider) {
+  $locationProvider.html5Mode(true);
   $routeProvider.when('/', {templateUrl: '/physiotherapyAppAngular1/app/pages/loginPage.html', reloadOnSearch: false});
   $routeProvider.when('/frozenShoulder', {templateUrl: '/physiotherapyAppAngular1/app/pages/frozenShoulder.html', reloadOnSearch: false});
-  $routeProvider.when('/toggle', {templateUrl: '/physiotherapyAppAngular1/app/pages/toggle.html', reloadOnSearch: false});
+  $routeProvider.when('/muscleStretching', {templateUrl: '/physiotherapyAppAngular1/app/pages/muscleStretching.html', reloadOnSearch: false});
+  $routeProvider.when('/backPain', {templateUrl: '/physiotherapyAppAngular1/app/pages/backPain.html', reloadOnSearch: false});
+  $routeProvider.when('/MyDetails', {templateUrl: '/physiotherapyAppAngular1/app/pages/infoPage.html', reloadOnSearch: false});
+  $routeProvider.when('/logout', {templateUrl: '/physiotherapyAppAngular1/app/pages/logout.html', reloadOnSearch: false});
 });
 
 
