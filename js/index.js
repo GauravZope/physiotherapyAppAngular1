@@ -23,13 +23,17 @@ app.run(function($transform) {
 // in order to avoid unwanted routing.
 //
 app.config(function($routeProvider,$locationProvider) {
-  $locationProvider.html5Mode(true);
-  $routeProvider.when('/', {templateUrl: '/physiotherapyAppAngular1/app/pages/loginPage.html', reloadOnSearch: false});
-  $routeProvider.when('/frozenShoulder', {templateUrl: '/physiotherapyAppAngular1/app/pages/frozenShoulder.html', reloadOnSearch: false});
-  $routeProvider.when('/muscleStretching', {templateUrl: '/physiotherapyAppAngular1/app/pages/muscleStretching.html', reloadOnSearch: false});
-  $routeProvider.when('/backPain', {templateUrl: '/physiotherapyAppAngular1/app/pages/backPain.html', reloadOnSearch: false});
-  $routeProvider.when('/MyDetails', {templateUrl: '/physiotherapyAppAngular1/app/pages/infoPage.html', reloadOnSearch: false});
-  $routeProvider.when('/logout', {templateUrl: '/physiotherapyAppAngular1/app/pages/logout.html', reloadOnSearch: false});
+  
+ $locationProvider.html5Mode({
+  enabled: true,
+  requireBase: false
+});
+  $routeProvider.when('/', {templateUrl: '/www/app/pages/loginPage.html', reloadOnSearch: false});
+  $routeProvider.when('/frozenShoulder', {templateUrl: '/www/app/pages/frozenShoulder.html', reloadOnSearch: false});
+  $routeProvider.when('/muscleStretching', {templateUrl: '/www/app/pages/muscleStretching.html', reloadOnSearch: false});
+  $routeProvider.when('/backPain', {templateUrl: '/www/app/pages/backPain.html', reloadOnSearch: false});
+  $routeProvider.when('/MyDetails', {templateUrl: '/www/app/pages/infoPage.html', reloadOnSearch: false});
+  $routeProvider.when('/logout', {templateUrl: '/www/app/pages/logout.html', reloadOnSearch: false});
 });
 
 
