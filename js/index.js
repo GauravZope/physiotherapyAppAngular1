@@ -28,12 +28,12 @@ app.config(function($routeProvider,$locationProvider) {
   enabled: true,
   requireBase: false
 });
-  $routeProvider.when('/', {templateUrl: '/www/app/pages/loginPage.html', reloadOnSearch: false});
-  $routeProvider.when('/frozenShoulder', {templateUrl: '/www/app/pages/frozenShoulder.html', reloadOnSearch: false});
-  $routeProvider.when('/muscleStretching', {templateUrl: '/www/app/pages/muscleStretching.html', reloadOnSearch: false});
-  $routeProvider.when('/backPain', {templateUrl: '/www/app/pages/backPain.html', reloadOnSearch: false});
-  $routeProvider.when('/MyDetails', {templateUrl: '/www/app/pages/infoPage.html', reloadOnSearch: false});
-  $routeProvider.when('/logout', {templateUrl: '/www/app/pages/logout.html', reloadOnSearch: false});
+  $routeProvider.when('/', {templateUrl: 'app/pages/loginPage.html', reloadOnSearch: false});
+  $routeProvider.when('/frozenShoulder', {templateUrl: 'app/pages/frozenShoulder.html', reloadOnSearch: false});
+  $routeProvider.when('/muscleStretching', {templateUrl: 'app/pages/muscleStretching.html', reloadOnSearch: false});
+  $routeProvider.when('/backPain', {templateUrl: 'app/pages/backPain.html', reloadOnSearch: false});
+  $routeProvider.when('/MyDetails', {templateUrl: 'app/pages/infoPage.html', reloadOnSearch: false});
+  $routeProvider.when('/logout', {templateUrl: 'app/pages/logout.html', reloadOnSearch: false});
 });
 
 
