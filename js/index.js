@@ -25,8 +25,7 @@ app.run(function($transform) {
 app.config(function($routeProvider,$locationProvider) {
   
  $locationProvider.html5Mode({
-  enabled: true,
-  requireBase: false
+  enabled: true
 });
   $routeProvider.when('/', {templateUrl: 'app/pages/loginPage.html', reloadOnSearch: false});
   $routeProvider.when('/frozenShoulder', {templateUrl: 'app/pages/frozenShoulder.html', reloadOnSearch: false});
